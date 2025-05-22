@@ -1,3 +1,28 @@
+// Mock API Configuration
+const API_BASE_URL = '';
+
+// Mock user database
+const mockUsers = [
+  { username: 'testuser', password: 'password123', email: 'test@example.com' }
+];
+
+// Override fetch for auth endpoints to use mock data
+const originalFetch = window.fetch;
+window.fetch = function(url, options) {
+  if (url.includes('/auth/login')) {
+    return mockLoginResponse(url, options);
+  } else if (url.includes('/auth/register')) {
+    return mockRegisterResponse(url, options);
+  } else if (url.includes('/auth/validate')) {
+    return mockValidateResponse(url, options);
+  } else if (url.includes('/auth/logout')) {
+    return Promise.resolve(new Response(JSON.stringify({ success: true }), { status: 200 }));
+  } else if (url.includes('/analytics/')) {
+    return Promise.resolve(new Response(JSON.stringify({ success: true }), { status: 200 }));
+  }
+  return originalFetch(url, options);
+};
+
 // scripts.js - Core functionality for JobPrep minimal site
 
 // API Configuration
