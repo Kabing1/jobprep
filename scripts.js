@@ -1,7 +1,91 @@
 // scripts.js - Core functionality for JobPrep minimal site
 
 // API Configuration
-const API_BASE_URL = 'https://5001-ii7r88g40au86r7uk08vf-5f80de18.manusvm.computer/api';
+// Mock API for testing without backend
+const API_BASE_URL = '';
+
+// Mock user database
+const mockUsers = [
+  { username: 'testuser', password: 'password123', email: 'test@example.com' }
+];
+
+// Override fetch for auth endpoints to use mock data
+const originalFetch = window.fetch;
+window.fetch = function(url, options ) {
+  if (url.includes('/auth/login')) {
+    return mockLoginResponse(url, options);
+  } else if (url.includes('/auth/register')) {
+    return mockRegisterResponse(url, options);
+  } else if (url.includes('/auth/validate')) {
+    return mockValidateResponse(url, options);
+  } else if (url.includes('/auth/logout')) {
+    return Promise.resolve(new Response(JSON.stringify({ success: true }), { status: 200 }));
+  }
+  return originalFetch(url, options);
+};
+
+function mockLoginResponse(url, options) {
+  const body = JSON.parse(options.body);
+  const user = mockUsers.find(u => u.username === body.username && u.password === body.password);
+  
+  if (user) {
+    return Promise.resolve(new Response(
+      JSON.stringify({
+        token: 'mock-token-' + Date.now(),
+        user: { username: user.username, email: user.email }
+      }),
+      { status: 200 }
+    ));
+  } else {
+    return Promise.resolve(new Response(
+      JSON.stringify({ message: 'Invalid username or password' }),
+      { status: 401 }
+    ));
+  }
+}
+
+function mockRegisterResponse(url, options) {
+  const body = JSON.parse(options.body);
+  const userExists = mockUsers.some(u => u.username === body.username || u.email === body.email);
+  
+  if (userExists) {
+    return Promise.resolve(new Response(
+      JSON.stringify({ message: 'Username or email already taken' }),
+      { status: 400 }
+    ));
+  } else {
+    // Add to mock database
+    mockUsers.push({
+      username: body.username,
+      password: body.password,
+      email: body.email
+    });
+    
+    return Promise.resolve(new Response(
+      JSON.stringify({
+        token: 'mock-token-' + Date.now(),
+        user: { username: body.username, email: body.email }
+      }),
+      { status: 200 }
+    ));
+  }
+}
+
+function mockValidateResponse(url, options) {
+  const authHeader = options.headers.Authorization;
+  if (authHeader && authHeader.startsWith('Bearer mock-token-')) {
+    return Promise.resolve(new Response(
+      JSON.stringify({ valid: true }),
+      { status: 200 }
+    ));
+  } else {
+    return Promise.resolve(new Response(
+      JSON.stringify({ valid: false }),
+      { status: 401 }
+    ));
+  }
+}
+
 
 // DOM Elements
 const loginBtn = document.getElementById('loginBtn');
