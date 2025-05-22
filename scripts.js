@@ -48,6 +48,67 @@ window.fetch = function(url, options ) {
   }
   return originalFetch(url, options);
 };
+function mockLoginResponse(url, options) {
+  const body = JSON.parse(options.body);
+  const user = mockUsers.find(u => u.username === body.username && u.password === body.password);
+  
+  if (user) {
+    return Promise.resolve(new Response(
+      JSON.stringify({
+        token: 'mock-token-' + Date.now(),
+        user: { username: user.username, email: user.email }
+      }),
+      { status: 200 }
+    ));
+  } else {
+    return Promise.resolve(new Response(
+      JSON.stringify({ message: 'Invalid username or password' }),
+      { status: 401 }
+    ));
+  }
+}
+
+function mockRegisterResponse(url, options) {
+  const body = JSON.parse(options.body);
+  const userExists = mockUsers.some(u => u.username === body.username || u.email === body.email);
+  
+  if (userExists) {
+    return Promise.resolve(new Response(
+      JSON.stringify({ message: 'Username or email already taken' }),
+      { status: 400 }
+    ));
+  } else {
+    // Add to mock database
+    mockUsers.push({
+      username: body.username,
+      password: body.password,
+      email: body.email
+    });
+    
+    return Promise.resolve(new Response(
+      JSON.stringify({
+        token: 'mock-token-' + Date.now(),
+        user: { username: body.username, email: body.email }
+      }),
+      { status: 200 }
+    ));
+  }
+}
+
+function mockValidateResponse(url, options) {
+  const authHeader = options.headers.Authorization;
+  if (authHeader && authHeader.startsWith('Bearer mock-token-')) {
+    return Promise.resolve(new Response(
+      JSON.stringify({ valid: true }),
+      { status: 200 }
+    ));
+  } else {
+    return Promise.resolve(new Response(
+      JSON.stringify({ valid: false }),
+      { status: 401 }
+    ));
+  }
+}
 
 function mockLoginResponse(url, options) {
   const body = JSON.parse(options.body);
@@ -802,4 +863,23 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Log initialization
     console.log('JobPrep minimal site initialized');
+});
+// Initialize
+document.addEventListener('DOMContentLoaded', async function() {
+    // Check login status
+    await checkLoginStatus();
+    
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Set up token refresh
+    setupTokenRefresh();
+    
+    // Log initialization
+    console.log('JobPrep minimal site initialized with mock API');
+    
+    // Show mock API notice
+    setTimeout(() => {
+        showMessage('Running in demo mode with mock API. Use testuser/password123 to login or register a new account.', 'info');
+    }, 1000);
 });
