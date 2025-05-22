@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobPrep - AI-Powered Job Application Tools</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/briefcase-logo.svg" alt="JobPrep Logo" class="logo-icon">
+                <span>JobPrep</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn btn-outline">Log In</button>
+                <button id="getStartedBtn" class="btn btn-primary">Get Started</button>
+            </div>
+            <button id="mobileMenuBtn" class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Transform Your Job Search with AI-Powered Tools</h1>
+                <p class="hero-subtitle">
+                    Land your dream job faster with South Africa's most advanced AI job application platform. 
+                    Create ATS-friendly resumes, generate tailored cover letters, and master interviews with real-time feedback.
+                </p>
+                <div class="hero-buttons">
+                    <button id="heroGetStartedBtn" class="btn btn-primary btn-large">Get Started Free</button>
+                    <button id="viewPlansBtn" class="btn btn-secondary btn-large">View Plans</button>
+                </div>
+                <p class="users-count">Join 50,000+ successful job seekers who found their perfect position with JobPrep</p>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Main Features</h2>
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="images/resume-icon.svg" alt="Resume Icon">
+                        </div>
+                        <h3>AI Resume Builder</h3>
+                        <h4>Create an ATS-Compliant CV in Minutes</h4>
+                        <p>
+                            Stand out from the competition with our AI-powered resume builder that optimizes your CV 
+                            with industry-specific keywords that pass Applicant Tracking Systems.
+                        </p>
+                        <button class="btn btn-feature">Try Resume Builder</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="images/letter-icon.svg" alt="Cover Letter Icon">
+                        </div>
+                        <h3>AI Cover Letter Generator</h3>
+                        <h4>Personalized Cover Letters for Every Application</h4>
+                        <p>
+                            Our AI cover letter generator creates customized, compelling cover letters tailored to 
+                            specific job descriptions, highlighting your relevant skills and experience.
+                        </p>
+                        <button class="btn btn-feature">Generate Cover Letter</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="images/interview-icon.svg" alt="Interview Icon">
+                        </div>
+                        <h3>AI Mock Interview Practice</h3>
+                        <h4>Master Your Interview with Real-Time Feedback</h4>
+                        <p>
+                            Our AI-powered mock interview system simulates real interview experiences with job-specific 
+                            questions and provides instant feedback on your responses.
+                        </p>
+                        <button class="btn btn-feature">Practice Interview</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <h2>Flexible Plans for Every Job Seeker</h2>
+                <p class="section-subtitle">
+                    Choose the plan that fits your job search needs and budget. All plans include our core AI-powered tools 
+                    with varying levels of features and customization.
+                </p>
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <h3>Basic Plan</h3>
+                        <div class="price">
+                            <span class="amount">R179.99</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="yearly-price">R1,799/year (16.7% savings)</p>
+                        <p class="plan-description">Essential tools for basic job applications</p>
+                        <ul class="features-list">
+                            <li>3 ATS-friendly CV templates</li>
+                            <li>Basic AI keyword suggestions</li>
+                            <li>Text-based interview practice</li>
+                            <li>30-day document storage</li>
+                            <li>Email support (48-hour response)</li>
+                        </ul>
+                        <button class="btn btn-plan">Get Started</button>
+                    </div>
+                    <div class="pricing-card popular">
+                        <div class="popular-tag">Most Popular</div>
+                        <h3>Standard Plan</h3>
+                        <div class="price">
+                            <span class="amount">R349.99</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="yearly-price">R3,499/year (16.7% savings)</p>
+                        <p class="plan-description">Comprehensive toolkit for serious job seekers</p>
+                        <ul class="features-list">
+                            <li>10 professional CV templates</li>
+                            <li>Advanced AI optimization</li>
+                            <li>Voice interview practice with feedback</li>
+                            <li>CV upload and refinement</li>
+                            <li>90-day document storage</li>
+                            <li>Email support (24-hour response)</li>
+                        </ul>
+                        <button class="btn btn-plan-primary">Sign Up</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Premium Plan</h3>
+                        <div class="price">
+                            <span class="amount">R499.99</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="yearly-price">R4,999/year (16.7% savings)</p>
+                        <p class="plan-description">Complete career advancement platform</p>
+                        <ul class="features-list">
+                            <li>Unlimited premium templates</li>
+                            <li>Full AI customization</li>
+                            <li>Video interview with comprehensive analysis</li>
+                            <li>Unlimited saved versions</li>
+                            <li>Unlimited document storage</li>
+                            <li>Priority email support (12-hour response)</li>
+                        </ul>
+                        <button class="btn btn-plan">Go Premium</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2>Start Your Job Search Success Story Today</h2>
+                <p>
+                    Join thousands of successful job seekers who found their perfect position with JobPrep's AI-powered platform. 
+                    Create ATS-optimized resumes, generate tailored cover letters, and master your interview skills.
+                </p>
+                <button id="ctaButton" class="btn btn-primary btn-large">Get Started Now</button>
+                <p class="guarantee">No credit card required • Cancel anytime • 100% satisfaction guarantee</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/briefcase-logo.svg" alt="JobPrep Logo" class="logo-icon">
+                    <span>JobPrep</span>
+                </div>
+                <p>© 2025 JobPrep. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Log In to JobPrep</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                    <button type="button" class="btn btn-outline close-btn">Cancel</button>
+                </div>
+                <p class="form-footer">
+                    Don't have an account? <a href="#" id="showRegisterLink">Register now</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Create Your JobPrep Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Username</label>
+                    <input type="text" id="regUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="button" class="btn btn-outline close-btn">Cancel</button>
+                </div>
+                <p class="form-footer">
+                    Already have an account? <a href="#" id="showLoginLink">Log in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
