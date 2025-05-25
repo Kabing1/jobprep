@@ -1,3 +1,5 @@
+// scripts.js - Core functionality for JobPrep minimal site
+
 // Mock API Configuration
 const API_BASE_URL = '';
 
@@ -23,31 +25,6 @@ window.fetch = function(url, options) {
   return originalFetch(url, options);
 };
 
-// scripts.js - Core functionality for JobPrep minimal site
-
-// API Configuration
-// Mock API for testing without backend
-const API_BASE_URL = '';
-
-// Mock user database
-const mockUsers = [
-  { username: 'testuser', password: 'password123', email: 'test@example.com' }
-];
-
-// Override fetch for auth endpoints to use mock data
-const originalFetch = window.fetch;
-window.fetch = function(url, options ) {
-  if (url.includes('/auth/login')) {
-    return mockLoginResponse(url, options);
-  } else if (url.includes('/auth/register')) {
-    return mockRegisterResponse(url, options);
-  } else if (url.includes('/auth/validate')) {
-    return mockValidateResponse(url, options);
-  } else if (url.includes('/auth/logout')) {
-    return Promise.resolve(new Response(JSON.stringify({ success: true }), { status: 200 }));
-  }
-  return originalFetch(url, options);
-};
 function mockLoginResponse(url, options) {
   const body = JSON.parse(options.body);
   const user = mockUsers.find(u => u.username === body.username && u.password === body.password);
@@ -109,86 +86,6 @@ function mockValidateResponse(url, options) {
     ));
   }
 }
-
-function mockLoginResponse(url, options) {
-  const body = JSON.parse(options.body);
-  const user = mockUsers.find(u => u.username === body.username && u.password === body.password);
-  
-  if (user) {
-    return Promise.resolve(new Response(
-      JSON.stringify({
-        token: 'mock-token-' + Date.now(),
-        user: { username: user.username, email: user.email }
-      }),
-      { status: 200 }
-    ));
-  } else {
-    return Promise.resolve(new Response(
-      JSON.stringify({ message: 'Invalid username or password' }),
-      { status: 401 }
-    ));
-  }
-}
-
-function mockRegisterResponse(url, options) {
-  const body = JSON.parse(options.body);
-  const userExists = mockUsers.some(u => u.username === body.username || u.email === body.email);
-  
-  if (userExists) {
-    return Promise.resolve(new Response(
-      JSON.stringify({ message: 'Username or email already taken' }),
-      { status: 400 }
-    ));
-  } else {
-    // Add to mock database
-    mockUsers.push({
-      username: body.username,
-      password: body.password,
-      email: body.email
-    });
-    
-    return Promise.resolve(new Response(
-      JSON.stringify({
-        token: 'mock-token-' + Date.now(),
-        user: { username: body.username, email: body.email }
-      }),
-      { status: 200 }
-    ));
-  }
-}
-
-function mockValidateResponse(url, options) {
-  const authHeader = options.headers.Authorization;
-  if (authHeader && authHeader.startsWith('Bearer mock-token-')) {
-    return Promise.resolve(new Response(
-      JSON.stringify({ valid: true }),
-      { status: 200 }
-    ));
-  } else {
-    return Promise.resolve(new Response(
-      JSON.stringify({ valid: false }),
-      { status: 401 }
-    ));
-  }
-}
-
-
-// DOM Elements
-const loginBtn = document.getElementById('loginBtn');
-const getStartedBtn = document.getElementById('getStartedBtn');
-const heroGetStartedBtn = document.getElementById('heroGetStartedBtn');
-const viewPlansBtn = document.getElementById('viewPlansBtn');
-const ctaButton = document.getElementById('ctaButton');
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const loginModal = document.getElementById('loginModal');
-const registerModal = document.getElementById('registerModal');
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
-const showRegisterLink = document.getElementById('showRegisterLink');
-const showLoginLink = document.getElementById('showLoginLink');
-const featureButtons = document.querySelectorAll('.btn-feature');
-const planButtons = document.querySelectorAll('.btn-plan, .btn-plan-primary');
-const closeModalButtons = document.querySelectorAll('.close-modal, .close-btn');
 
 // State Management
 let isLoggedIn = false;
@@ -286,6 +183,11 @@ function setTokenExpiry() {
 
 // Update UI based on login status
 function updateUIForLoggedInUser() {
+    // Get fresh references to DOM elements
+    const loginBtn = document.getElementById('loginBtn');
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const heroGetStartedBtn = document.getElementById('heroGetStartedBtn');
+    
     if (isLoggedIn && currentUser) {
         // Change login button to user menu
         if (loginBtn) {
@@ -344,6 +246,7 @@ async function loginUser(username, password) {
         updateUIForLoggedInUser();
         
         // Close modal
+        const loginModal = document.getElementById('loginModal');
         closeModal(loginModal);
         
         // Show success message
@@ -414,6 +317,7 @@ async function registerUser(username, email, password) {
         updateUIForLoggedInUser();
         
         // Close modal
+        const registerModal = document.getElementById('registerModal');
         closeModal(registerModal);
         
         // Show success message
@@ -524,14 +428,20 @@ async function sendAnalyticsData(type, data) {
 
 // UI Helpers
 function showModal(modal) {
-    if (!modal) return;
+    if (!modal) {
+        console.error('Modal not found');
+        return;
+    }
     
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden'; // Prevent scrolling
 }
 
 function closeModal(modal) {
-    if (!modal) return;
+    if (!modal) {
+        console.error('Modal not found');
+        return;
+    }
     
     modal.style.display = 'none';
     document.body.style.overflow = ''; // Restore scrolling
@@ -624,48 +534,93 @@ function setupTokenRefresh() {
     }, REFRESH_INTERVAL);
 }
 
-// Event Listeners
+// Event Listeners - Fixed to ensure they're always attached properly
 function setupEventListeners() {
+    // Get fresh references to DOM elements
+    const loginBtn = document.getElementById('loginBtn');
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    const heroGetStartedBtn = document.getElementById('heroGetStartedBtn');
+    const viewPlansBtn = document.getElementById('viewPlansBtn');
+    const ctaButton = document.getElementById('ctaButton');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const loginModal = document.getElementById('loginModal');
+    const registerModal = document.getElementById('registerModal');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const showRegisterLink = document.getElementById('showRegisterLink');
+    const showLoginLink = document.getElementById('showLoginLink');
+    const featureButtons = document.querySelectorAll('.btn-feature');
+    const planButtons = document.querySelectorAll('.btn-plan, .btn-plan-primary');
+    const closeModalButtons = document.querySelectorAll('.close-modal, .close-btn');
+    
+    // Debug log to check if elements are found
+    console.log('DOM Elements found:', {
+        loginBtn: !!loginBtn,
+        getStartedBtn: !!getStartedBtn,
+        heroGetStartedBtn: !!heroGetStartedBtn,
+        loginModal: !!loginModal,
+        registerModal: !!registerModal
+    });
+    
     // Login button
     if (loginBtn) {
-        loginBtn.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newLoginBtn = loginBtn.cloneNode(true);
+        loginBtn.parentNode.replaceChild(newLoginBtn, loginBtn);
+        
+        newLoginBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Login button clicked, isLoggedIn:', isLoggedIn);
             if (isLoggedIn) {
                 logout();
             } else {
-                showModal(loginModal);
+                showModal(document.getElementById('loginModal'));
             }
         });
     }
     
     // Get Started buttons
     if (getStartedBtn) {
-        getStartedBtn.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newGetStartedBtn = getStartedBtn.cloneNode(true);
+        getStartedBtn.parentNode.replaceChild(newGetStartedBtn, getStartedBtn);
+        
+        newGetStartedBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Get Started button clicked, isLoggedIn:', isLoggedIn);
             if (isLoggedIn) {
                 // Redirect to dashboard (placeholder)
                 showMessage('Dashboard functionality coming soon!', 'success');
             } else {
-                showModal(registerModal);
+                showModal(document.getElementById('registerModal'));
             }
         });
     }
     
     if (heroGetStartedBtn) {
-        heroGetStartedBtn.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newHeroGetStartedBtn = heroGetStartedBtn.cloneNode(true);
+        heroGetStartedBtn.parentNode.replaceChild(newHeroGetStartedBtn, heroGetStartedBtn);
+        
+        newHeroGetStartedBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Hero Get Started button clicked, isLoggedIn:', isLoggedIn);
             if (isLoggedIn) {
                 // Redirect to dashboard (placeholder)
                 showMessage('Dashboard functionality coming soon!', 'success');
             } else {
-                showModal(registerModal);
+                showModal(document.getElementById('registerModal'));
             }
         });
     }
     
     // View Plans button
     if (viewPlansBtn) {
-        viewPlansBtn.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newViewPlansBtn = viewPlansBtn.cloneNode(true);
+        viewPlansBtn.parentNode.replaceChild(newViewPlansBtn, viewPlansBtn);
+        
+        newViewPlansBtn.addEventListener('click', function(e) {
             e.preventDefault();
             scrollToSection('pricing');
         });
@@ -673,25 +628,37 @@ function setupEventListeners() {
     
     // CTA button
     if (ctaButton) {
-        ctaButton.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newCtaButton = ctaButton.cloneNode(true);
+        ctaButton.parentNode.replaceChild(newCtaButton, ctaButton);
+        
+        newCtaButton.addEventListener('click', function(e) {
             e.preventDefault();
             if (isLoggedIn) {
                 // Redirect to dashboard (placeholder)
                 showMessage('Dashboard functionality coming soon!', 'success');
             } else {
-                showModal(registerModal);
+                showModal(document.getElementById('registerModal'));
             }
         });
     }
     
     // Mobile menu button
     if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        // Remove any existing event listeners
+        const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
+        mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
+        
+        newMobileMenuBtn.addEventListener('click', toggleMobileMenu);
     }
     
     // Close modal buttons
     closeModalButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        // Remove any existing event listeners
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+        
+        newButton.addEventListener('click', function() {
             const modal = this.closest('.modal');
             closeModal(modal);
         });
@@ -699,50 +666,70 @@ function setupEventListeners() {
     
     // Switch between login and register
     if (showRegisterLink) {
-        showRegisterLink.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newShowRegisterLink = showRegisterLink.cloneNode(true);
+        showRegisterLink.parentNode.replaceChild(newShowRegisterLink, showRegisterLink);
+        
+        newShowRegisterLink.addEventListener('click', function(e) {
             e.preventDefault();
-            closeModal(loginModal);
-            showModal(registerModal);
+            closeModal(document.getElementById('loginModal'));
+            showModal(document.getElementById('registerModal'));
         });
     }
     
     if (showLoginLink) {
-        showLoginLink.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newShowLoginLink = showLoginLink.cloneNode(true);
+        showLoginLink.parentNode.replaceChild(newShowLoginLink, showLoginLink);
+        
+        newShowLoginLink.addEventListener('click', function(e) {
             e.preventDefault();
-            closeModal(registerModal);
-            showModal(loginModal);
+            closeModal(document.getElementById('registerModal'));
+            showModal(document.getElementById('loginModal'));
         });
     }
     
     // Feature buttons
     featureButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+        
+        newButton.addEventListener('click', function(e) {
             e.preventDefault();
             if (isLoggedIn) {
                 // Redirect to feature (placeholder)
                 showMessage('Feature access coming soon!', 'success');
             } else {
-                showModal(registerModal);
+                showModal(document.getElementById('registerModal'));
             }
         });
     });
     
     // Plan buttons
     planButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+        
+        newButton.addEventListener('click', function(e) {
             e.preventDefault();
             if (isLoggedIn) {
                 // Redirect to plan selection (placeholder)
                 showMessage('Plan selection coming soon!', 'success');
             } else {
-                showModal(registerModal);
+                showModal(document.getElementById('registerModal'));
             }
         });
     });
     
     // Login form submission
     if (loginForm) {
-        loginForm.addEventListener('submit', async function(e) {
+        // Remove any existing event listeners
+        const newLoginForm = loginForm.cloneNode(true);
+        loginForm.parentNode.replaceChild(newLoginForm, loginForm);
+        
+        newLoginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value;
@@ -771,7 +758,11 @@ function setupEventListeners() {
     
     // Registration form submission
     if (registerForm) {
-        registerForm.addEventListener('submit', async function(e) {
+        // Remove any existing event listeners
+        const newRegisterForm = registerForm.cloneNode(true);
+        registerForm.parentNode.replaceChild(newRegisterForm, registerForm);
+        
+        newRegisterForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const username = document.getElementById('regUsername').value;
@@ -807,7 +798,11 @@ function setupEventListeners() {
     
     // Navigation links
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+        
+        newLink.addEventListener('click', function(e) {
             e.preventDefault();
             const target = this.getAttribute('href').substring(1);
             scrollToSection(target);
@@ -852,20 +847,8 @@ function setupEventListeners() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', async function() {
-    // Check login status
-    await checkLoginStatus();
+    console.log('DOM fully loaded - initializing JobPrep site');
     
-    // Set up event listeners
-    setupEventListeners();
-    
-    // Set up token refresh
-    setupTokenRefresh();
-    
-    // Log initialization
-    console.log('JobPrep minimal site initialized');
-});
-// Initialize
-document.addEventListener('DOMContentLoaded', async function() {
     // Check login status
     await checkLoginStatus();
     
@@ -883,3 +866,26 @@ document.addEventListener('DOMContentLoaded', async function() {
         showMessage('Running in demo mode with mock API. Use testuser/password123 to login or register a new account.', 'info');
     }, 1000);
 });
+
+// Add a fallback initialization for cases where DOMContentLoaded might have already fired
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    console.log('DOM already loaded - initializing JobPrep site immediately');
+    setTimeout(async function() {
+        // Check login status
+        await checkLoginStatus();
+        
+        // Set up event listeners
+        setupEventListeners();
+        
+        // Set up token refresh
+        setupTokenRefresh();
+        
+        // Log initialization
+        console.log('JobPrep minimal site initialized with mock API (fallback)');
+        
+        // Show mock API notice
+        setTimeout(() => {
+            showMessage('Running in demo mode with mock API. Use testuser/password123 to login or register a new account.', 'info');
+        }, 1000);
+    }, 100);
+}
