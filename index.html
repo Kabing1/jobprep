@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobPrep - Prepare for Your Dream Job</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Load modules in the correct order -->
+    <script src="api-config.js"></script>
+    <script src="error-handler.js"></script>
+    <script src="session-manager.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="auth-service.js"></script>
+    <script src="mock-api.js"></script>
+    <script src="scripts.js"></script>
+    <!-- Dashboard authentication controller - ensures proper authentication -->
+    <script src="dashboard-auth-controller.js"></script>
+</head>
+<body>
+    <!-- Header and Navigation -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/briefcase-logo.svg" alt="JobPrep Logo">
+                <h1>JobPrep</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button id="getStartedBtn" class="btn btn-primary">Get Started</button>
+                    <button id="loginBtn" class="btn btn-outline">Log In</button>
+                </div>
+                <button id="mobileMenuBtn" class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Land Your Dream Job with AI-Powered Tools</h1>
+                    <p>Create professional resumes, compelling cover letters, and practice interviews with our AI-powered platform.</p>
+                    <div class="hero-buttons">
+                        <button id="heroGetStartedBtn" class="btn btn-primary btn-large">Get Started Free</button>
+                        <button id="viewPlansBtn" class="btn btn-outline btn-large">View Plans</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/resume-icon.svg" alt="Resume Builder">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Powerful Features to Boost Your Job Search</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <img src="images/resume-icon.svg" alt="AI Resume Builder">
+                        <h3>AI Resume Builder</h3>
+                        <p>Create professional, ATS-optimized resumes tailored to specific job descriptions.</p>
+                        <ul>
+                            <li><span class="check-icon"></span> ATS-friendly templates</li>
+                            <li><span class="check-icon"></span> Keyword optimization</li>
+                            <li><span class="check-icon"></span> Industry-specific suggestions</li>
+                        </ul>
+                        <button class="btn btn-feature">Build Resume</button>
+                    </div>
+                    <div class="feature-card">
+                        <img src="images/letter-icon.svg" alt="Cover Letter Generator">
+                        <h3>Cover Letter Generator</h3>
+                        <p>Generate personalized cover letters that highlight your relevant skills and experience.</p>
+                        <ul>
+                            <li><span class="check-icon"></span> Customized content</li>
+                            <li><span class="check-icon"></span> Professional formatting</li>
+                            <li><span class="check-icon"></span> Multiple style options</li>
+                        </ul>
+                        <button class="btn btn-feature">Create Letter</button>
+                    </div>
+                    <div class="feature-card">
+                        <img src="images/interview-icon.svg" alt="Mock Interview Practice">
+                        <h3>Mock Interview Practice</h3>
+                        <p>Practice with AI-powered interview simulations and receive feedback to improve.</p>
+                        <ul>
+                            <li><span class="check-icon"></span> Industry-specific questions</li>
+                            <li><span class="check-icon"></span> Real-time feedback</li>
+                            <li><span class="check-icon"></span> Performance analytics</li>
+                        </ul>
+                        <button class="btn btn-feature">Practice Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <h2>Choose the Right Plan for You</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Free</h3>
+                        <div class="price">$0<span>/month</span></div>
+                        <ul>
+                            <li><span class="check-icon"></span> Basic resume builder</li>
+                            <li><span class="check-icon"></span> 1 resume template</li>
+                            <li><span class="check-icon"></span> Limited AI suggestions</li>
+                            <li class="not-included"><span class="x-icon"></span> Cover letter generator</li>
+                            <li class="not-included"><span class="x-icon"></span> Mock interviews</li>
+                        </ul>
+                        <button class="btn btn-plan">Get Started</button>
+                    </div>
+                    <div class="pricing-card featured">
+                        <div class="popular-tag">Most Popular</div>
+                        <h3>Premium</h3>
+                        <div class="price">$12<span>/month</span></div>
+                        <ul>
+                            <li><span class="check-icon"></span> Advanced resume builder</li>
+                            <li><span class="check-icon"></span> 10+ resume templates</li>
+                            <li><span class="check-icon"></span> Unlimited AI suggestions</li>
+                            <li><span class="check-icon"></span> Cover letter generator</li>
+                            <li><span class="check-icon"></span> 5 mock interviews/month</li>
+                        </ul>
+                        <button class="btn btn-plan-primary">Select Plan</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Pro</h3>
+                        <div class="price">$29<span>/month</span></div>
+                        <ul>
+                            <li><span class="check-icon"></span> Everything in Premium</li>
+                            <li><span class="check-icon"></span> 20+ premium templates</li>
+                            <li><span class="check-icon"></span> Priority AI processing</li>
+                            <li><span class="check-icon"></span> Unlimited mock interviews</li>
+                            <li><span class="check-icon"></span> 1-on-1 career coaching</li>
+                        </ul>
+                        <button class="btn btn-plan">Select Plan</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to Land Your Dream Job?</h2>
+                <p>Join thousands of job seekers who have successfully advanced their careers with JobPrep.</p>
+                <button id="ctaButton" class="btn btn-primary btn-large">Get Started Today</button>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About JobPrep</h2>
+                <p>JobPrep was founded with a simple mission: to help job seekers present their best selves to potential employers. Our AI-powered tools are designed to give you the edge in today's competitive job market.</p>
+                <p>Our team of career experts and AI specialists work together to ensure our platform provides the most effective job search tools available.</p>
+            </div>
+        </section>
+
+        <!-- Dashboard Section (Initially Hidden) -->
+        <div id="dashboard" class="dashboard" style="display: none;">
+            <div class="dashboard-header">
+                <h2>My Dashboard</h2>
+                <div class="user-welcome" id="userWelcome"></div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card stats-card">
+                    <h3>My Progress</h3>
+                    <div id="userStats" class="user-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="resumeCount">0</span>
+                            <span class="stat-label">Resumes</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="letterCount">0</span>
+                            <span class="stat-label">Cover Letters</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="interviewCount">0</span>
+                            <span class="stat-label">Interviews</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button id="newResumeBtn" class="btn btn-dashboard">New Resume</button>
+                        <button id="newLetterBtn" class="btn btn-dashboard">New Cover Letter</button>
+                        <button id="practiceBtn" class="btn btn-dashboard">Practice Interview</button>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card recent-activity">
+                    <h3>Recent Activity</h3>
+                    <ul id="activityList" class="activity-list">
+                        <li class="activity-empty">No recent activity</li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-card saved-documents">
+                    <h3>My Documents</h3>
+                    <ul id="documentsList" class="documents-list">
+                        <li class="documents-empty">No saved documents</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="dashboard-footer">
+                <button id="profileSettingsBtn" class="btn btn-outline">Profile Settings</button>
+                <button id="logoutDashboardBtn" class="btn btn-outline">Log Out</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <img src="images/briefcase-logo.svg" alt="JobPrep Logo">
+                        <h2>JobPrep</h2>
+                    </div>
+                    <p>Your AI-powered career advancement platform.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#features">Resume Builder</a></li>
+                        <li><a href="#features">Cover Letter Generator</a></li>
+                        <li><a href="#features">Mock Interviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 JobPrep. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Log In</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Log In</button>
+            </form>
+            <p class="form-footer">Don't have an account? <a href="#" id="showRegisterLink">Register now</a></p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Create Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Username</label>
+                    <input type="text" id="regUsername" name="regUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" name="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+            <p class="form-footer">Already have an account? <a href="#" id="showLoginLink">Log in</a></p>
+        </div>
+    </div>
+</body>
+</html>
