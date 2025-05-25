@@ -252,6 +252,9 @@ async function loginUser(username, password) {
         // Show success message
         showMessage('Login successful! Welcome back.', 'success');
         
+        // Show dashboard
+        showDashboard();
+        
         // Track login event
         trackEvent('login_success', { username });
         
@@ -323,6 +326,9 @@ async function registerUser(username, email, password) {
         // Show success message
         showMessage('Registration successful! Welcome to JobPrep.', 'success');
         
+        // Show dashboard
+        showDashboard();
+        
         // Track registration event
         trackEvent('registration_success', { username });
         
@@ -376,6 +382,9 @@ function logout() {
     
     // Update UI
     updateUIForLoggedInUser();
+    
+    // Hide dashboard
+    hideDashboard();
     
     // Show message
     showMessage('You have been logged out.', 'success');
@@ -510,6 +519,150 @@ function scrollToSection(sectionId) {
     }
 }
 
+// Dashboard Functions
+function showDashboard() {
+    console.log('Showing dashboard');
+    
+    // Check if user is logged in
+    if (!isLoggedIn || !currentUser) {
+        console.error('Cannot show dashboard: User not logged in');
+        showMessage('Please log in to access your dashboard', 'error');
+        return;
+    }
+    
+    // Try to use Dashboard module if available
+    if (typeof Dashboard !== 'undefined' && typeof Dashboard.show === 'function') {
+        console.log('Using Dashboard module to show dashboard');
+        Dashboard.show();
+        return;
+    }
+    
+    // Fallback: Show dashboard directly
+    console.log('Using fallback method to show dashboard');
+    
+    // Get dashboard element
+    const dashboard = document.getElementById('dashboard');
+    if (!dashboard) {
+        console.error('Dashboard element not found');
+        showMessage('Dashboard not available', 'error');
+        return;
+    }
+    
+    // Hide all sections
+    document.querySelectorAll('section').forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Show dashboard
+    dashboard.style.display = 'block';
+    
+    // Set welcome message
+    const userWelcome = document.getElementById('userWelcome');
+    if (userWelcome) {
+        // Get time of day
+        const hour = new Date().getHours();
+        let greeting = 'Hello';
+        
+        if (hour < 12) {
+            greeting = 'Good morning';
+        } else if (hour < 18) {
+            greeting = 'Good afternoon';
+        } else {
+            greeting = 'Good evening';
+        }
+        
+        userWelcome.textContent = `${greeting}, ${currentUser.username}!`;
+    }
+    
+    // Set mock statistics
+    const resumeCount = document.getElementById('resumeCount');
+    const letterCount = document.getElementById('letterCount');
+    const interviewCount = document.getElementById('interviewCount');
+    
+    if (resumeCount) resumeCount.textContent = Math.floor(Math.random() * 5);
+    if (letterCount) letterCount.textContent = Math.floor(Math.random() * 3);
+    if (interviewCount) interviewCount.textContent = Math.floor(Math.random() * 10);
+    
+    // Set up dashboard event listeners
+    setupDashboardEventListeners();
+}
+
+function hideDashboard() {
+    console.log('Hiding dashboard');
+    
+    // Try to use Dashboard module if available
+    if (typeof Dashboard !== 'undefined' && typeof Dashboard.hide === 'function') {
+        console.log('Using Dashboard module to hide dashboard');
+        Dashboard.hide();
+        return;
+    }
+    
+    // Fallback: Hide dashboard directly
+    console.log('Using fallback method to hide dashboard');
+    
+    // Get dashboard element
+    const dashboard = document.getElementById('dashboard');
+    if (!dashboard) {
+        console.error('Dashboard element not found');
+        return;
+    }
+    
+    // Hide dashboard
+    dashboard.style.display = 'none';
+    
+    // Show all sections
+    document.querySelectorAll('section').forEach(section => {
+        section.style.display = 'block';
+    });
+}
+
+function setupDashboardEventListeners() {
+    console.log('Setting up dashboard event listeners');
+    
+    // Quick action buttons
+    const newResumeBtn = document.getElementById('newResumeBtn');
+    if (newResumeBtn) {
+        newResumeBtn.addEventListener('click', function() {
+            console.log('New resume button clicked');
+            showMessage('Creating new resume...', 'info');
+        });
+    }
+    
+    const newLetterBtn = document.getElementById('newLetterBtn');
+    if (newLetterBtn) {
+        newLetterBtn.addEventListener('click', function() {
+            console.log('New cover letter button clicked');
+            showMessage('Creating new cover letter...', 'info');
+        });
+    }
+    
+    const practiceBtn = document.getElementById('practiceBtn');
+    if (practiceBtn) {
+        practiceBtn.addEventListener('click', function() {
+            console.log('Practice interview button clicked');
+            showMessage('Starting interview practice...', 'info');
+        });
+    }
+    
+    // Profile settings button
+    const profileSettingsBtn = document.getElementById('profileSettingsBtn');
+    if (profileSettingsBtn) {
+        profileSettingsBtn.addEventListener('click', function() {
+            console.log('Profile settings button clicked');
+            showMessage('Opening profile settings...', 'info');
+        });
+    }
+    
+    // Logout button
+    const logoutDashboardBtn = document.getElementById('logoutDashboardBtn');
+    if (logoutDashboardBtn) {
+        logoutDashboardBtn.addEventListener('click', function() {
+            console.log('Logout button clicked');
+            logout();
+        });
+    }
+}
+
 // Periodic token validation
 function setupTokenRefresh() {
     // Check token validity every 15 minutes
@@ -522,47 +675,63 @@ function setupTokenRefresh() {
                 if (token) {
                     const isValid = await validateToken(token);
                     if (!isValid) {
+                        console.log('Token validation failed, logging out');
                         logout();
                         showMessage('Your session has expired. Please log in again.', 'info');
                     }
                 }
             } catch (error) {
                 console.error('Token refresh error:', error);
-                // Don't logout on network errors
+                // Don't automatically logout on network errors
+                if (error.name !== 'NetworkError' && error.name !== 'TypeError') {
+                    logout();
+                    showMessage('Your session has expired. Please log in again.', 'info');
+                }
             }
         }
     }, REFRESH_INTERVAL);
 }
 
-// Event Listeners - Fixed to ensure they're always attached properly
+// Event Listeners
 function setupEventListeners() {
-    // Get fresh references to DOM elements
-    const loginBtn = document.getElementById('loginBtn');
-    const getStartedBtn = document.getElementById('getStartedBtn');
-    const heroGetStartedBtn = document.getElementById('heroGetStartedBtn');
-    const viewPlansBtn = document.getElementById('viewPlansBtn');
-    const ctaButton = document.getElementById('ctaButton');
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const loginModal = document.getElementById('loginModal');
-    const registerModal = document.getElementById('registerModal');
+    console.log('Setting up event listeners');
+    
+    // Login form submission
     const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            loginUser(username, password);
+        });
+    }
+    
+    // Registration form submission
     const registerForm = document.getElementById('registerForm');
-    const showRegisterLink = document.getElementById('showRegisterLink');
-    const showLoginLink = document.getElementById('showLoginLink');
-    const featureButtons = document.querySelectorAll('.btn-feature');
-    const planButtons = document.querySelectorAll('.btn-plan, .btn-plan-primary');
-    const closeModalButtons = document.querySelectorAll('.close-modal, .close-btn');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                showMessage('Passwords do not match', 'error');
+                return;
+            }
+            
+            registerUser(username, email, password);
+        });
+    }
     
-    // Debug log to check if elements are found
-    console.log('DOM Elements found:', {
-        loginBtn: !!loginBtn,
-        getStartedBtn: !!getStartedBtn,
-        heroGetStartedBtn: !!heroGetStartedBtn,
-        loginModal: !!loginModal,
-        registerModal: !!registerModal
-    });
-    
-    // Login button
+    // Login button click
+    const loginBtn = document.getElementById('loginBtn');
     if (loginBtn) {
         // Remove any existing event listeners
         const newLoginBtn = loginBtn.cloneNode(true);
@@ -572,14 +741,16 @@ function setupEventListeners() {
             e.preventDefault();
             console.log('Login button clicked, isLoggedIn:', isLoggedIn);
             if (isLoggedIn) {
-                logout();
+                // Show dashboard
+                showDashboard();
             } else {
                 showModal(document.getElementById('loginModal'));
             }
         });
     }
     
-    // Get Started buttons
+    // Get started button click
+    const getStartedBtn = document.getElementById('getStartedBtn');
     if (getStartedBtn) {
         // Remove any existing event listeners
         const newGetStartedBtn = getStartedBtn.cloneNode(true);
@@ -589,14 +760,16 @@ function setupEventListeners() {
             e.preventDefault();
             console.log('Get Started button clicked, isLoggedIn:', isLoggedIn);
             if (isLoggedIn) {
-                // Redirect to dashboard (placeholder)
-                showMessage('Dashboard functionality coming soon!', 'success');
+                // Show dashboard
+                showDashboard();
             } else {
                 showModal(document.getElementById('registerModal'));
             }
         });
     }
     
+    // Hero get started button click
+    const heroGetStartedBtn = document.getElementById('heroGetStartedBtn');
     if (heroGetStartedBtn) {
         // Remove any existing event listeners
         const newHeroGetStartedBtn = heroGetStartedBtn.cloneNode(true);
@@ -606,8 +779,8 @@ function setupEventListeners() {
             e.preventDefault();
             console.log('Hero Get Started button clicked, isLoggedIn:', isLoggedIn);
             if (isLoggedIn) {
-                // Redirect to dashboard (placeholder)
-                showMessage('Dashboard functionality coming soon!', 'success');
+                // Show dashboard
+                showDashboard();
             } else {
                 showModal(document.getElementById('registerModal'));
             }
@@ -615,6 +788,7 @@ function setupEventListeners() {
     }
     
     // View Plans button
+    const viewPlansBtn = document.getElementById('viewPlansBtn');
     if (viewPlansBtn) {
         // Remove any existing event listeners
         const newViewPlansBtn = viewPlansBtn.cloneNode(true);
@@ -627,6 +801,7 @@ function setupEventListeners() {
     }
     
     // CTA button
+    const ctaButton = document.getElementById('ctaButton');
     if (ctaButton) {
         // Remove any existing event listeners
         const newCtaButton = ctaButton.cloneNode(true);
@@ -635,8 +810,8 @@ function setupEventListeners() {
         newCtaButton.addEventListener('click', function(e) {
             e.preventDefault();
             if (isLoggedIn) {
-                // Redirect to dashboard (placeholder)
-                showMessage('Dashboard functionality coming soon!', 'success');
+                // Show dashboard
+                showDashboard();
             } else {
                 showModal(document.getElementById('registerModal'));
             }
@@ -644,45 +819,40 @@ function setupEventListeners() {
     }
     
     // Mobile menu button
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     if (mobileMenuBtn) {
         // Remove any existing event listeners
         const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
         mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
         
-        newMobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        newMobileMenuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleMobileMenu();
+        });
     }
     
-    // Close modal buttons
-    closeModalButtons.forEach(button => {
-        // Remove any existing event listeners
-        const newButton = button.cloneNode(true);
-        button.parentNode.replaceChild(newButton, button);
-        
-        newButton.addEventListener('click', function() {
+    // Modal close buttons
+    document.querySelectorAll('.close-modal').forEach(function(closeBtn) {
+        closeBtn.addEventListener('click', function() {
             const modal = this.closest('.modal');
             closeModal(modal);
         });
     });
     
-    // Switch between login and register
+    // Show register link
+    const showRegisterLink = document.getElementById('showRegisterLink');
     if (showRegisterLink) {
-        // Remove any existing event listeners
-        const newShowRegisterLink = showRegisterLink.cloneNode(true);
-        showRegisterLink.parentNode.replaceChild(newShowRegisterLink, showRegisterLink);
-        
-        newShowRegisterLink.addEventListener('click', function(e) {
+        showRegisterLink.addEventListener('click', function(e) {
             e.preventDefault();
             closeModal(document.getElementById('loginModal'));
             showModal(document.getElementById('registerModal'));
         });
     }
     
+    // Show login link
+    const showLoginLink = document.getElementById('showLoginLink');
     if (showLoginLink) {
-        // Remove any existing event listeners
-        const newShowLoginLink = showLoginLink.cloneNode(true);
-        showLoginLink.parentNode.replaceChild(newShowLoginLink, showLoginLink);
-        
-        newShowLoginLink.addEventListener('click', function(e) {
+        showLoginLink.addEventListener('click', function(e) {
             e.preventDefault();
             closeModal(document.getElementById('registerModal'));
             showModal(document.getElementById('loginModal'));
@@ -690,16 +860,11 @@ function setupEventListeners() {
     }
     
     // Feature buttons
-    featureButtons.forEach(button => {
-        // Remove any existing event listeners
-        const newButton = button.cloneNode(true);
-        button.parentNode.replaceChild(newButton, button);
-        
-        newButton.addEventListener('click', function(e) {
-            e.preventDefault();
+    document.querySelectorAll('.btn-feature').forEach(function(button) {
+        button.addEventListener('click', function() {
             if (isLoggedIn) {
-                // Redirect to feature (placeholder)
-                showMessage('Feature access coming soon!', 'success');
+                showMessage('Feature access available in your dashboard', 'info');
+                showDashboard();
             } else {
                 showModal(document.getElementById('registerModal'));
             }
@@ -707,148 +872,29 @@ function setupEventListeners() {
     });
     
     // Plan buttons
-    planButtons.forEach(button => {
-        // Remove any existing event listeners
-        const newButton = button.cloneNode(true);
-        button.parentNode.replaceChild(newButton, button);
-        
-        newButton.addEventListener('click', function(e) {
-            e.preventDefault();
+    document.querySelectorAll('.btn-plan, .btn-plan-primary').forEach(function(button) {
+        button.addEventListener('click', function() {
             if (isLoggedIn) {
-                // Redirect to plan selection (placeholder)
-                showMessage('Plan selection coming soon!', 'success');
+                showMessage('Plan selection available in your dashboard', 'info');
+                showDashboard();
             } else {
                 showModal(document.getElementById('registerModal'));
             }
         });
     });
     
-    // Login form submission
-    if (loginForm) {
-        // Remove any existing event listeners
-        const newLoginForm = loginForm.cloneNode(true);
-        loginForm.parentNode.replaceChild(newLoginForm, loginForm);
-        
-        newLoginForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (!username || !password) {
-                showMessage('Please enter both username and password.', 'error');
-                return;
-            }
-            
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Logging in...';
-            submitBtn.disabled = true;
-            
-            try {
-                await loginUser(username, password);
-            } finally {
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-    }
-    
-    // Registration form submission
-    if (registerForm) {
-        // Remove any existing event listeners
-        const newRegisterForm = registerForm.cloneNode(true);
-        registerForm.parentNode.replaceChild(newRegisterForm, registerForm);
-        
-        newRegisterForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('regUsername').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('regPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (!username || !email || !password || !confirmPassword) {
-                showMessage('Please fill in all fields.', 'error');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                showMessage('Passwords do not match.', 'error');
-                return;
-            }
-            
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Registering...';
-            submitBtn.disabled = true;
-            
-            try {
-                await registerUser(username, email, password);
-            } finally {
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-    }
-    
     // Navigation links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        // Remove any existing event listeners
-        const newLink = link.cloneNode(true);
-        link.parentNode.replaceChild(newLink, link);
-        
-        newLink.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const target = this.getAttribute('href').substring(1);
-            scrollToSection(target);
-            
-            // Close mobile menu if open
-            if (document.body.classList.contains('mobile-menu-active')) {
-                toggleMobileMenu();
-            }
+            const sectionId = this.getAttribute('href').substring(1);
+            scrollToSection(sectionId);
         });
-    });
-    
-    // Close modals when clicking outside
-    window.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal')) {
-            closeModal(e.target);
-        }
-    });
-    
-    // Keyboard accessibility
-    window.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            // Close any open modals
-            document.querySelectorAll('.modal').forEach(modal => {
-                if (modal.style.display === 'flex') {
-                    closeModal(modal);
-                }
-            });
-        }
-    });
-    
-    // Handle offline/online events
-    window.addEventListener('online', function() {
-        showMessage('You are back online.', 'success');
-        // Validate token when coming back online
-        checkLoginStatus();
-    });
-    
-    window.addEventListener('offline', function() {
-        showMessage('You are offline. Some features may be unavailable.', 'warning');
     });
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('DOM fully loaded - initializing JobPrep site');
-    
     // Check login status
     await checkLoginStatus();
     
@@ -865,27 +911,30 @@ document.addEventListener('DOMContentLoaded', async function() {
     setTimeout(() => {
         showMessage('Running in demo mode with mock API. Use testuser/password123 to login or register a new account.', 'info');
     }, 1000);
+    
+    // If user is logged in, show dashboard
+    if (isLoggedIn) {
+        showDashboard();
+    }
 });
 
-// Add a fallback initialization for cases where DOMContentLoaded might have already fired
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    console.log('DOM already loaded - initializing JobPrep site immediately');
-    setTimeout(async function() {
-        // Check login status
-        await checkLoginStatus();
-        
-        // Set up event listeners
-        setupEventListeners();
-        
-        // Set up token refresh
-        setupTokenRefresh();
-        
-        // Log initialization
-        console.log('JobPrep minimal site initialized with mock API (fallback)');
-        
-        // Show mock API notice
-        setTimeout(() => {
-            showMessage('Running in demo mode with mock API. Use testuser/password123 to login or register a new account.', 'info');
-        }, 1000);
-    }, 100);
-}
+// Handle page visibility changes
+document.addEventListener('visibilitychange', async function() {
+    if (document.visibilityState === 'visible' && isLoggedIn) {
+        // Validate token when page becomes visible
+        const token = localStorage.getItem(TOKEN_KEY);
+        if (token) {
+            try {
+                const isValid = await validateToken(token);
+                if (!isValid) {
+                    console.log('Token validation failed on visibility change, logging out');
+                    logout();
+                    showMessage('Your session has expired. Please log in again.', 'info');
+                }
+            } catch (error) {
+                console.error('Token validation error on visibility change:', error);
+                // Don't automatically logout on network errors
+            }
+        }
+    }
+});
