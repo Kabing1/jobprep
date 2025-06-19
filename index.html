@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobPrep - Complete Solution</title>
+    <title>JobPrep - Final Responsive Solution</title>
     <style>
         /* Reset and base styles */
         * {
@@ -48,6 +48,68 @@
             margin: 0 auto;
         }
         
+        /* Button styles */
+        button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: #2563eb;
+            border: 1px solid #2563eb;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .btn-outline:hover {
+            background-color: #f0f5ff;
+            transform: translateY(-2px);
+        }
+        
+        .btn-white {
+            background-color: white;
+            color: #2563eb;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .btn-white:hover {
+            background-color: #f0f5ff;
+            transform: translateY(-2px);
+        }
+        
+        .btn-transparent {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .btn-transparent:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
         /* Header styles */
         header {
             background-color: #fff;
@@ -68,35 +130,12 @@
             font-weight: bold;
             font-size: 24px;
             color: #2563eb;
-        }
-        
-        .auth-buttons button {
-            padding: 8px 16px;
-            border-radius: 4px;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
         }
         
-        .btn-primary {
-            background-color: #2563eb;
-            color: white;
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            background-color: #1d4ed8;
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            color: #2563eb;
-            border: 1px solid #2563eb;
-            margin-left: 10px;
-        }
-        
-        .btn-outline:hover {
-            background-color: #f0f5ff;
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
         }
         
         /* Hero section */
@@ -121,36 +160,9 @@
         
         .hero-buttons {
             margin-top: 30px;
-        }
-        
-        .hero-buttons button {
-            padding: 12px 24px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            margin: 0 10px;
-        }
-        
-        .btn-white {
-            background-color: white;
-            color: #2563eb;
-            border: none;
-        }
-        
-        .btn-white:hover {
-            background-color: #f0f5ff;
-        }
-        
-        .btn-transparent {
-            background-color: transparent;
-            color: white;
-            border: 1px solid white;
-        }
-        
-        .btn-transparent:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
         
         /* Why Choose Us section */
@@ -169,6 +181,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            background-color: #fff;
         }
         
         .feature-card:hover {
@@ -185,11 +198,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-        }
-        
-        .feature-icon i {
             font-size: 24px;
-            color: #2563eb;
         }
         
         .feature-card h3 {
@@ -220,6 +229,15 @@
             max-width: 350px;
             text-align: center;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
         .step-number {
@@ -282,6 +300,12 @@
             padding: 30px;
             text-align: center;
             transition: all 0.3s ease;
+            background-color: #fff;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
         .pricing-card.popular {
@@ -289,6 +313,10 @@
             box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1);
             transform: scale(1.05);
             position: relative;
+        }
+        
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-5px);
         }
         
         .popular-badge {
@@ -353,6 +381,12 @@
             border-radius: 8px;
             padding: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
         .testimonial-text {
@@ -478,6 +512,7 @@
         /* Dashboard styles */
         .dashboard-page {
             display: none;
+            padding: 40px 0;
         }
         
         .dashboard {
@@ -519,6 +554,12 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
         .dashboard-card h3 {
@@ -562,11 +603,12 @@
             border: 1px solid #e2e8f0;
             border-radius: 4px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
         
         .btn-dashboard:hover {
             background-color: #e2e8f0;
+            transform: translateY(-2px);
         }
         
         .activity-list, .documents-list {
@@ -750,12 +792,27 @@
                 flex: 1;
             }
             
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons button {
+                width: 80%;
+            }
+            
             .pricing-card.popular {
                 transform: scale(1);
             }
             
             .footer-content {
                 flex-direction: column;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
             }
         }
     </style>
@@ -765,7 +822,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">JobPrep</div>
+                <div class="logo" id="logoLink">JobPrep</div>
                 <div class="auth-buttons" id="authButtons">
                     <button id="loginBtn" class="btn-outline">Log In</button>
                     <button id="registerBtn" class="btn-primary">Register</button>
@@ -799,23 +856,17 @@
                     </div>
                     <div class="features-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <span>📝</span>
-                            </div>
+                            <div class="feature-icon">📝</div>
                             <h3>AI-Powered Resume Builder</h3>
                             <p>Create professional, ATS-friendly resumes with our intelligent builder that highlights your strengths and matches job requirements.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <span>📄</span>
-                            </div>
+                            <div class="feature-icon">📄</div>
                             <h3>Custom Cover Letters</h3>
                             <p>Generate personalized cover letters that showcase your skills and experience, tailored to specific job descriptions.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <span>🎯</span>
-                            </div>
+                            <div class="feature-icon">🎯</div>
                             <h3>Interview Preparation</h3>
                             <p>Practice with our AI interviewer that simulates real interview scenarios and provides instant feedback to improve your performance.</p>
                         </div>
@@ -882,7 +933,7 @@
                                 <li>Basic Job Search Tools</li>
                                 <li>Community Support</li>
                             </ul>
-                            <button class="btn-outline btn-block">Get Started</button>
+                            <button class="btn-outline btn-block pricing-btn">Get Started</button>
                         </div>
                         <div class="pricing-card popular">
                             <div class="popular-badge">Most Popular</div>
@@ -895,7 +946,7 @@
                                 <li>Advanced Job Search Tools</li>
                                 <li>Priority Support</li>
                             </ul>
-                            <button class="btn-primary btn-block">Choose Plan</button>
+                            <button class="btn-primary btn-block pricing-btn">Choose Plan</button>
                         </div>
                         <div class="pricing-card">
                             <h3>Enterprise</h3>
@@ -907,7 +958,7 @@
                                 <li>Career Coaching Sessions</li>
                                 <li>Dedicated Support Manager</li>
                             </ul>
-                            <button class="btn-outline btn-block">Contact Sales</button>
+                            <button class="btn-outline btn-block pricing-btn">Contact Sales</button>
                         </div>
                     </div>
                 </div>
@@ -977,37 +1028,37 @@
                         <div class="footer-column">
                             <h3>JobPrep</h3>
                             <ul class="footer-links">
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Press</a></li>
-                                <li><a href="#">Blog</a></li>
+                                <li><a href="#" class="footer-link">About Us</a></li>
+                                <li><a href="#" class="footer-link">Careers</a></li>
+                                <li><a href="#" class="footer-link">Press</a></li>
+                                <li><a href="#" class="footer-link">Blog</a></li>
                             </ul>
                         </div>
                         <div class="footer-column">
                             <h3>Features</h3>
                             <ul class="footer-links">
-                                <li><a href="#">Resume Builder</a></li>
-                                <li><a href="#">Cover Letter Generator</a></li>
-                                <li><a href="#">Interview Practice</a></li>
-                                <li><a href="#">Job Search</a></li>
+                                <li><a href="#" class="footer-link">Resume Builder</a></li>
+                                <li><a href="#" class="footer-link">Cover Letter Generator</a></li>
+                                <li><a href="#" class="footer-link">Interview Practice</a></li>
+                                <li><a href="#" class="footer-link">Job Search</a></li>
                             </ul>
                         </div>
                         <div class="footer-column">
                             <h3>Resources</h3>
                             <ul class="footer-links">
-                                <li><a href="#">Help Center</a></li>
-                                <li><a href="#">Career Advice</a></li>
-                                <li><a href="#">Templates</a></li>
-                                <li><a href="#">Tutorials</a></li>
+                                <li><a href="#" class="footer-link">Help Center</a></li>
+                                <li><a href="#" class="footer-link">Career Advice</a></li>
+                                <li><a href="#" class="footer-link">Templates</a></li>
+                                <li><a href="#" class="footer-link">Tutorials</a></li>
                             </ul>
                         </div>
                         <div class="footer-column">
                             <h3>Legal</h3>
                             <ul class="footer-links">
-                                <li><a href="#">Terms of Service</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Cookie Policy</a></li>
-                                <li><a href="#">GDPR</a></li>
+                                <li><a href="#" class="footer-link">Terms of Service</a></li>
+                                <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                                <li><a href="#" class="footer-link">Cookie Policy</a></li>
+                                <li><a href="#" class="footer-link">GDPR</a></li>
                             </ul>
                         </div>
                     </div>
@@ -1134,6 +1185,14 @@
     <div id="debugPanel" class="debug-panel"></div>
 
     <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+            
+            // Initialize the application
+            initApp();
+        });
+
         // Debug function
         function debug(message) {
             const debugPanel = document.getElementById('debugPanel');
@@ -1150,355 +1209,413 @@
             }
         });
 
-        // Clear localStorage on page load to ensure fresh state
-        localStorage.removeItem('jobprep_user');
-        debug('localStorage cleared on page load');
+        function initApp() {
+            debug('Initializing application');
+            
+            // Clear localStorage on initialization to ensure fresh state
+            localStorage.removeItem('jobprep_user');
+            debug('localStorage cleared on initialization');
+            
+            // DOM Elements
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const heroRegisterBtn = document.getElementById('heroRegisterBtn');
+            const ctaRegisterBtn = document.getElementById('ctaRegisterBtn');
+            const footerCtaBtn = document.getElementById('footerCtaBtn');
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const showLoginModal = document.getElementById('showLoginModal');
+            const showRegisterModal = document.getElementById('showRegisterModal');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+            const landingPage = document.getElementById('landingPage');
+            const dashboardPage = document.getElementById('dashboardPage');
+            const userWelcome = document.getElementById('userWelcome');
+            const authButtons = document.getElementById('authButtons');
+            const logoLink = document.getElementById('logoLink');
+            const pricingButtons = document.querySelectorAll('.pricing-btn');
+            const footerLinks = document.querySelectorAll('.footer-link');
+            const dashboardButtons = document.querySelectorAll('.btn-dashboard');
 
-        // DOM Elements
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        const heroRegisterBtn = document.getElementById('heroRegisterBtn');
-        const ctaRegisterBtn = document.getElementById('ctaRegisterBtn');
-        const footerCtaBtn = document.getElementById('footerCtaBtn');
-        const learnMoreBtn = document.getElementById('learnMoreBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const loginModal = document.getElementById('loginModal');
-        const registerModal = document.getElementById('registerModal');
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const showLoginModal = document.getElementById('showLoginModal');
-        const showRegisterModal = document.getElementById('showRegisterModal');
-        const closeModalButtons = document.querySelectorAll('.close-modal');
-        const landingPage = document.getElementById('landingPage');
-        const dashboardPage = document.getElementById('dashboardPage');
-        const userWelcome = document.getElementById('userWelcome');
-        const authButtons = document.getElementById('authButtons');
+            // Mock user database
+            const users = [
+                { username: 'testuser', password: 'password123', email: 'test@example.com' }
+            ];
 
-        // Mock user database
-        const users = [
-            { username: 'testuser', password: 'password123', email: 'test@example.com' }
-        ];
+            // Show message function
+            function showMessage(text, type) {
+                debug(`Showing message: ${text} (${type})`);
+                
+                // Remove any existing messages
+                const existingMessages = document.querySelectorAll('.message');
+                existingMessages.forEach(msg => msg.remove());
+                
+                // Create message element
+                const message = document.createElement('div');
+                message.className = `message ${type}-message`;
+                message.textContent = text;
+                
+                // Add to body
+                document.body.appendChild(message);
+                
+                // Auto remove after 3 seconds
+                setTimeout(() => {
+                    message.remove();
+                }, 3000);
+            }
 
-        // Show message function
-        function showMessage(text, type) {
-            debug(`Showing message: ${text} (${type})`);
-            
-            // Remove any existing messages
-            const existingMessages = document.querySelectorAll('.message');
-            existingMessages.forEach(msg => msg.remove());
-            
-            // Create message element
-            const message = document.createElement('div');
-            message.className = `message ${type}-message`;
-            message.textContent = text;
-            
-            // Add to body
-            document.body.appendChild(message);
-            
-            // Auto remove after 3 seconds
-            setTimeout(() => {
-                message.remove();
-            }, 3000);
-        }
+            // Show landing page function
+            function showLandingPage() {
+                debug('Showing landing page');
+                landingPage.style.display = 'block';
+                dashboardPage.style.display = 'none';
+                
+                // Reset auth buttons
+                authButtons.innerHTML = `
+                    <button id="loginBtn" class="btn-outline">Log In</button>
+                    <button id="registerBtn" class="btn-primary">Register</button>
+                `;
+                
+                // Re-add event listeners
+                document.getElementById('loginBtn').addEventListener('click', function() {
+                    openModal(loginModal);
+                });
+                
+                document.getElementById('registerBtn').addEventListener('click', function() {
+                    openModal(registerModal);
+                });
+                
+                debug('Landing page displayed, auth buttons reset');
+            }
 
-        // Show landing page function
-        function showLandingPage() {
-            debug('Showing landing page');
-            landingPage.style.display = 'block';
-            dashboardPage.style.display = 'none';
-            
-            // Reset auth buttons
-            authButtons.innerHTML = `
-                <button id="loginBtn" class="btn-outline">Log In</button>
-                <button id="registerBtn" class="btn-primary">Register</button>
-            `;
-            
-            // Re-add event listeners
-            document.getElementById('loginBtn').addEventListener('click', function() {
-                openModal(loginModal);
-            });
-            
-            document.getElementById('registerBtn').addEventListener('click', function() {
-                openModal(registerModal);
-            });
-            
-            debug('Landing page displayed, auth buttons reset');
-        }
+            // Show dashboard function
+            function showDashboard(user) {
+                debug(`Showing dashboard for user: ${user.username}`);
+                landingPage.style.display = 'none';
+                dashboardPage.style.display = 'block';
+                userWelcome.textContent = `Hello, ${user.username}!`;
+                
+                // Update auth buttons
+                authButtons.innerHTML = `
+                    <span style="margin-right: 10px;">${user.username}</span>
+                    <button id="headerLogoutBtn" class="btn-outline">Log Out</button>
+                `;
+                
+                // Add event listener to new logout button
+                document.getElementById('headerLogoutBtn').addEventListener('click', logout);
+                debug('Dashboard displayed, auth buttons updated');
+            }
 
-        // Show dashboard function
-        function showDashboard(user) {
-            debug(`Showing dashboard for user: ${user.username}`);
-            landingPage.style.display = 'none';
-            dashboardPage.style.display = 'block';
-            userWelcome.textContent = `Hello, ${user.username}!`;
-            
-            // Update auth buttons
-            authButtons.innerHTML = `
-                <span style="margin-right: 10px;">${user.username}</span>
-                <button id="headerLogoutBtn" class="btn-outline">Log Out</button>
-            `;
-            
-            // Add event listener to new logout button
-            document.getElementById('headerLogoutBtn').addEventListener('click', logout);
-            debug('Dashboard displayed, auth buttons updated');
-        }
-
-        // Check login status function
-        function checkLoginStatus() {
-            debug('Checking login status');
-            const userJson = localStorage.getItem('jobprep_user');
-            
-            if (userJson) {
-                try {
-                    const user = JSON.parse(userJson);
-                    debug(`User found in localStorage: ${user.username}`);
-                    showDashboard(user);
-                    return true;
-                } catch (e) {
-                    debug(`Error parsing user data: ${e.message}`);
-                    localStorage.removeItem('jobprep_user');
+            // Check login status function
+            function checkLoginStatus() {
+                debug('Checking login status');
+                const userJson = localStorage.getItem('jobprep_user');
+                
+                if (userJson) {
+                    try {
+                        const user = JSON.parse(userJson);
+                        debug(`User found in localStorage: ${user.username}`);
+                        showDashboard(user);
+                        return true;
+                    } catch (e) {
+                        debug(`Error parsing user data: ${e.message}`);
+                        localStorage.removeItem('jobprep_user');
+                        showLandingPage();
+                        return false;
+                    }
+                } else {
+                    debug('No user found in localStorage');
                     showLandingPage();
                     return false;
                 }
-            } else {
-                debug('No user found in localStorage');
-                showLandingPage();
-                return false;
             }
-        }
 
-        // Login function
-        function login(username, password) {
-            debug(`Login attempt: ${username}`);
-            
-            // Check if user exists
-            const user = users.find(u => u.username === username && u.password === password);
-            
-            if (user) {
-                debug(`Login successful: ${username}`);
+            // Login function
+            function login(username, password) {
+                debug(`Login attempt: ${username}`);
+                
+                // Check if user exists
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    debug(`Login successful: ${username}`);
+                    
+                    // Store user in localStorage
+                    localStorage.setItem('jobprep_user', JSON.stringify({
+                        username: user.username,
+                        email: user.email
+                    }));
+                    
+                    // Show dashboard
+                    showDashboard(user);
+                    
+                    // Show success message
+                    showMessage('Login successful!', 'success');
+                    
+                    // Close modal
+                    closeModal(loginModal);
+                    
+                    return true;
+                } else {
+                    debug(`Login failed: ${username}`);
+                    showMessage('Invalid username or password', 'error');
+                    return false;
+                }
+            }
+
+            // Register function
+            function register(username, email, password) {
+                debug(`Registration attempt: ${username}, ${email}`);
+                
+                // Check if username or email already exists
+                if (users.some(u => u.username === username || u.email === email)) {
+                    debug(`Registration failed: username or email exists`);
+                    showMessage('Username or email already exists', 'error');
+                    return false;
+                }
+                
+                // Add user to mock database
+                users.push({ username, email, password });
+                debug(`User added to database: ${username}`);
                 
                 // Store user in localStorage
                 localStorage.setItem('jobprep_user', JSON.stringify({
-                    username: user.username,
-                    email: user.email
+                    username,
+                    email
                 }));
                 
                 // Show dashboard
-                showDashboard(user);
+                showDashboard({ username, email });
                 
                 // Show success message
-                showMessage('Login successful!', 'success');
+                showMessage('Registration successful!', 'success');
                 
                 // Close modal
-                closeModal(loginModal);
+                closeModal(registerModal);
                 
                 return true;
-            } else {
-                debug(`Login failed: ${username}`);
-                showMessage('Invalid username or password', 'error');
-                return false;
             }
-        }
 
-        // Register function
-        function register(username, email, password) {
-            debug(`Registration attempt: ${username}, ${email}`);
-            
-            // Check if username or email already exists
-            if (users.some(u => u.username === username || u.email === email)) {
-                debug(`Registration failed: username or email exists`);
-                showMessage('Username or email already exists', 'error');
-                return false;
-            }
-            
-            // Add user to mock database
-            users.push({ username, email, password });
-            debug(`User added to database: ${username}`);
-            
-            // Store user in localStorage
-            localStorage.setItem('jobprep_user', JSON.stringify({
-                username,
-                email
-            }));
-            
-            // Show dashboard
-            showDashboard({ username, email });
-            
-            // Show success message
-            showMessage('Registration successful!', 'success');
-            
-            // Close modal
-            closeModal(registerModal);
-            
-            return true;
-        }
-
-        // Logout function
-        function logout() {
-            debug('Logout initiated');
-            
-            // Remove user from localStorage
-            localStorage.removeItem('jobprep_user');
-            
-            // Show landing page
-            showLandingPage();
-            
-            // Show success message
-            showMessage('Logged out successfully', 'success');
-            
-            debug('Logout complete, user removed from localStorage');
-        }
-
-        // Open modal function
-        function openModal(modal) {
-            debug(`Opening modal: ${modal.id}`);
-            modal.style.display = 'flex';
-        }
-
-        // Close modal function
-        function closeModal(modal) {
-            debug(`Closing modal: ${modal.id}`);
-            modal.style.display = 'none';
-            
-            // Reset form
-            const form = modal.querySelector('form');
-            if (form) form.reset();
-        }
-
-        // Scroll to section function
-        function scrollToSection(sectionId) {
-            debug(`Scrolling to section: ${sectionId}`);
-            const section = document.querySelector(sectionId);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Set up event listeners
-        function setupEventListeners() {
-            debug('Setting up event listeners');
-            
-            // Login button
-            loginBtn.addEventListener('click', function() {
-                debug('Login button clicked');
-                openModal(loginModal);
-            });
-            
-            // Register button
-            registerBtn.addEventListener('click', function() {
-                debug('Register button clicked');
-                openModal(registerModal);
-            });
-            
-            // Hero register button
-            heroRegisterBtn.addEventListener('click', function() {
-                debug('Hero register button clicked');
-                openModal(registerModal);
-            });
-            
-            // CTA register button
-            ctaRegisterBtn.addEventListener('click', function() {
-                debug('CTA register button clicked');
-                openModal(registerModal);
-            });
-            
-            // Footer CTA button
-            footerCtaBtn.addEventListener('click', function() {
-                debug('Footer CTA button clicked');
-                openModal(registerModal);
-            });
-            
-            // Learn more button
-            learnMoreBtn.addEventListener('click', function() {
-                debug('Learn more button clicked');
-                scrollToSection('.why-choose-us');
-            });
-            
-            // Pricing buttons
-            document.querySelectorAll('.pricing-card button').forEach(button => {
-                button.addEventListener('click', function() {
-                    debug('Pricing button clicked');
-                    openModal(registerModal);
-                });
-            });
-            
-            // Logout button
-            logoutBtn.addEventListener('click', function() {
-                debug('Logout button clicked');
-                logout();
-            });
-            
-            // Show login modal link
-            showLoginModal.addEventListener('click', function(e) {
-                debug('Show login modal link clicked');
-                e.preventDefault();
-                closeModal(registerModal);
-                openModal(loginModal);
-            });
-            
-            // Show register modal link
-            showRegisterModal.addEventListener('click', function(e) {
-                debug('Show register modal link clicked');
-                e.preventDefault();
-                closeModal(loginModal);
-                openModal(registerModal);
-            });
-            
-            // Close modal buttons
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    debug('Close modal button clicked');
-                    const modalId = this.getAttribute('data-modal');
-                    closeModal(document.getElementById(modalId));
-                });
-            });
-            
-            // Close modal when clicking outside
-            window.addEventListener('click', function(e) {
-                if (e.target === loginModal) {
-                    debug('Clicked outside login modal');
-                    closeModal(loginModal);
-                }
-                if (e.target === registerModal) {
-                    debug('Clicked outside register modal');
-                    closeModal(registerModal);
-                }
-            });
-            
-            // Login form submission
-            loginForm.addEventListener('submit', function(e) {
-                debug('Login form submitted');
-                e.preventDefault();
-                const username = document.getElementById('loginUsername').value;
-                const password = document.getElementById('loginPassword').value;
-                login(username, password);
-            });
-            
-            // Register form submission
-            registerForm.addEventListener('submit', function(e) {
-                debug('Register form submitted');
-                e.preventDefault();
-                const username = document.getElementById('registerUsername').value;
-                const email = document.getElementById('registerEmail').value;
-                const password = document.getElementById('registerPassword').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
+            // Logout function
+            function logout() {
+                debug('Logout initiated');
                 
-                // Validate passwords match
-                if (password !== confirmPassword) {
-                    debug('Passwords do not match');
-                    showMessage('Passwords do not match', 'error');
-                    return;
+                // Remove user from localStorage
+                localStorage.removeItem('jobprep_user');
+                
+                // Show landing page
+                showLandingPage();
+                
+                // Show success message
+                showMessage('Logged out successfully', 'success');
+                
+                debug('Logout complete, user removed from localStorage');
+                
+                // Re-initialize event listeners
+                setupEventListeners();
+            }
+
+            // Open modal function
+            function openModal(modal) {
+                debug(`Opening modal: ${modal.id}`);
+                modal.style.display = 'flex';
+            }
+
+            // Close modal function
+            function closeModal(modal) {
+                debug(`Closing modal: ${modal.id}`);
+                modal.style.display = 'none';
+                
+                // Reset form
+                const form = modal.querySelector('form');
+                if (form) form.reset();
+            }
+
+            // Scroll to section function
+            function scrollToSection(sectionClass) {
+                debug(`Scrolling to section: ${sectionClass}`);
+                const section = document.querySelector(sectionClass);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            // Set up event listeners
+            function setupEventListeners() {
+                debug('Setting up event listeners');
+                
+                // Logo click
+                if (logoLink) {
+                    logoLink.addEventListener('click', function() {
+                        debug('Logo clicked');
+                        const isLoggedIn = localStorage.getItem('jobprep_user');
+                        if (isLoggedIn) {
+                            showDashboard(JSON.parse(isLoggedIn));
+                        } else {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    });
                 }
                 
-                register(username, email, password);
-            });
-            
-            debug('All event listeners set up');
-        }
-
-        // Initialize application
-        function initApp() {
-            debug('Initializing application');
+                // Login button
+                if (loginBtn) {
+                    loginBtn.addEventListener('click', function() {
+                        debug('Login button clicked');
+                        openModal(loginModal);
+                    });
+                }
+                
+                // Register button
+                if (registerBtn) {
+                    registerBtn.addEventListener('click', function() {
+                        debug('Register button clicked');
+                        openModal(registerModal);
+                    });
+                }
+                
+                // Hero register button
+                if (heroRegisterBtn) {
+                    heroRegisterBtn.addEventListener('click', function() {
+                        debug('Hero register button clicked');
+                        openModal(registerModal);
+                    });
+                }
+                
+                // CTA register button
+                if (ctaRegisterBtn) {
+                    ctaRegisterBtn.addEventListener('click', function() {
+                        debug('CTA register button clicked');
+                        openModal(registerModal);
+                    });
+                }
+                
+                // Footer CTA button
+                if (footerCtaBtn) {
+                    footerCtaBtn.addEventListener('click', function() {
+                        debug('Footer CTA button clicked');
+                        openModal(registerModal);
+                    });
+                }
+                
+                // Learn more button
+                if (learnMoreBtn) {
+                    learnMoreBtn.addEventListener('click', function() {
+                        debug('Learn more button clicked');
+                        scrollToSection('.why-choose-us');
+                    });
+                }
+                
+                // Pricing buttons
+                pricingButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        debug('Pricing button clicked');
+                        openModal(registerModal);
+                    });
+                });
+                
+                // Footer links
+                footerLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        debug('Footer link clicked');
+                        showMessage('This feature is coming soon!', 'info');
+                    });
+                });
+                
+                // Dashboard action buttons
+                dashboardButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        debug('Dashboard button clicked');
+                        showMessage('This feature is coming soon!', 'info');
+                    });
+                });
+                
+                // Logout button
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function() {
+                        debug('Logout button clicked');
+                        logout();
+                    });
+                }
+                
+                // Show login modal link
+                if (showLoginModal) {
+                    showLoginModal.addEventListener('click', function(e) {
+                        debug('Show login modal link clicked');
+                        e.preventDefault();
+                        closeModal(registerModal);
+                        openModal(loginModal);
+                    });
+                }
+                
+                // Show register modal link
+                if (showRegisterModal) {
+                    showRegisterModal.addEventListener('click', function(e) {
+                        debug('Show register modal link clicked');
+                        e.preventDefault();
+                        closeModal(loginModal);
+                        openModal(registerModal);
+                    });
+                }
+                
+                // Close modal buttons
+                closeModalButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        debug('Close modal button clicked');
+                        const modalId = this.getAttribute('data-modal');
+                        closeModal(document.getElementById(modalId));
+                    });
+                });
+                
+                // Close modal when clicking outside
+                window.addEventListener('click', function(e) {
+                    if (e.target === loginModal) {
+                        debug('Clicked outside login modal');
+                        closeModal(loginModal);
+                    }
+                    if (e.target === registerModal) {
+                        debug('Clicked outside register modal');
+                        closeModal(registerModal);
+                    }
+                });
+                
+                // Login form submission
+                if (loginForm) {
+                    loginForm.addEventListener('submit', function(e) {
+                        debug('Login form submitted');
+                        e.preventDefault();
+                        const username = document.getElementById('loginUsername').value;
+                        const password = document.getElementById('loginPassword').value;
+                        login(username, password);
+                    });
+                }
+                
+                // Register form submission
+                if (registerForm) {
+                    registerForm.addEventListener('submit', function(e) {
+                        debug('Register form submitted');
+                        e.preventDefault();
+                        const username = document.getElementById('registerUsername').value;
+                        const email = document.getElementById('registerEmail').value;
+                        const password = document.getElementById('registerPassword').value;
+                        const confirmPassword = document.getElementById('confirmPassword').value;
+                        
+                        // Validate passwords match
+                        if (password !== confirmPassword) {
+                            debug('Passwords do not match');
+                            showMessage('Passwords do not match', 'error');
+                            return;
+                        }
+                        
+                        register(username, email, password);
+                    });
+                }
+                
+                debug('All event listeners set up');
+            }
             
             // Set up event listeners
             setupEventListeners();
@@ -1513,12 +1630,6 @@
             
             debug('Application initialized');
         }
-
-        // Run when DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            debug('DOM fully loaded');
-            initApp();
-        });
     </script>
 </body>
 </html>
